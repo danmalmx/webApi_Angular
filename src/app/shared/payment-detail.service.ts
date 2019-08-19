@@ -1,6 +1,6 @@
 import { PaymentDetail } from './payment-detail.model';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +12,16 @@ export class PaymentDetailService {
 
   constructor(private http: HttpClient) { }
 
-  postPaymentDetail(formData: PaymentDetail) {
-  return this.http.post(this.rootUrl + '/Payments', formData);
+  postPaymentDetail() {
+    return this.http.post(this.rootUrl + '/Payments', this.formData);
+  }
+
+  putPaymentDetail() {
+    return this.http.put(this.rootUrl + '/Payments/' + this.formData.PMId, this.formData );
+  }
+
+  deletePaymentDetail(id) {
+    return this.http.delete(this.rootUrl + '/Payments/' + id );
   }
 
   refreshList() {
@@ -21,4 +29,5 @@ export class PaymentDetailService {
     .toPromise()
     .then(res => this.list = res as PaymentDetail[]);
   }
+
 }
